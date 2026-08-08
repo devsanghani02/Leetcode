@@ -1,25 +1,14 @@
 class Solution {
 public:
-    bool f(int i,vector<int>& nums,vector<int>& dp){
-        int n=nums.size();
-        if(i==n-1) return true;
-        if(i>=n) return false;
-        if(dp[i]!=-1) return dp[i];
-        
-        for(int j=1;j<=nums[i];j++){
-            
-            if(f(i+j,nums,dp)){
-                return dp[i]=1;
-
-            }
-        }
-        return dp[i]=0;
-        
-
-    }
     bool canJump(vector<int>& nums) {
-        int n=nums.size();
-        vector<int> dp(n,-1);
-        return f(0,nums,dp);
+        int n = nums.size();
+        int maxReach= 0;
+        if (n==1) return true;
+        for(int i=0;i<n-1;i++){
+            if (i>maxReach) return false;
+            if (i+nums[i]>maxReach) maxReach=i+nums[i];
+            if (maxReach>=n-1) return true;
+        }
+        return false;
     }
 };
